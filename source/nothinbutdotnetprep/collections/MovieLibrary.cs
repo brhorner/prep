@@ -14,12 +14,23 @@ namespace nothinbutdotnetprep.collections
 
         public IEnumerable<Movie> all_movies()
         {
-            return this.movies;
+            foreach (var movie in this.movies) 
+                yield return movie;
         }
 
         public void add(Movie movie)
         {
-            throw new NotImplementedException();
+            bool add = true;
+            foreach (var existingMovie in this.movies)
+            {
+                if (movie.CompareTo(existingMovie) == 0)
+                {
+                    add = false;
+                    break;
+                }
+            }
+            if (add)
+                this.movies.Add(movie);
         }
 
         public IEnumerable<Movie> sort_all_movies_by_title_descending()
@@ -29,12 +40,20 @@ namespace nothinbutdotnetprep.collections
 
         public IEnumerable<Movie> all_movies_published_by_pixar()
         {
-            throw new NotImplementedException();
+            foreach (var movie in this.movies)
+            {
+                if (movie.production_studio == ProductionStudio.Pixar)
+                    yield return movie;
+            }
         }
 
         public IEnumerable<Movie> all_movies_published_by_pixar_or_disney()
         {
-            throw new NotImplementedException();
+            foreach (var movie in this.movies)
+            {
+                if (movie.production_studio == ProductionStudio.Pixar)
+                    yield return movie;
+            }
         }
 
         public IEnumerable<Movie> sort_all_movies_by_title_ascending()
@@ -49,7 +68,11 @@ namespace nothinbutdotnetprep.collections
 
         public IEnumerable<Movie> all_movies_not_published_by_pixar()
         {
-            throw new NotImplementedException();
+            foreach (var movie in this.movies)
+            {
+                if (movie.production_studio != ProductionStudio.Pixar)
+                    yield return movie;
+            }
         }
 
         public IEnumerable<Movie> all_movies_published_after(int year)
