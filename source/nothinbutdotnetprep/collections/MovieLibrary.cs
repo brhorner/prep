@@ -51,7 +51,7 @@ namespace nothinbutdotnetprep.collections
         {
             foreach (var movie in this.movies)
             {
-                if (movie.production_studio == ProductionStudio.Pixar)
+                if (movie.production_studio == ProductionStudio.Pixar || movie.production_studio == ProductionStudio.Disney)
                     yield return movie;
             }
         }
@@ -77,22 +77,38 @@ namespace nothinbutdotnetprep.collections
 
         public IEnumerable<Movie> all_movies_published_after(int year)
         {
-            throw new NotImplementedException();
+            foreach (var movie in this.movies)
+            {
+                if (movie.date_published.Year > year)
+                    yield return movie;
+            }
         }
 
         public IEnumerable<Movie> all_movies_published_between_years(int startingYear, int endingYear)
         {
-            throw new NotImplementedException();
+            foreach (var movie in this.movies)
+            {
+                if (movie.date_published.Year >= startingYear && movie.date_published.Year <= endingYear)
+                    yield return movie;
+            }
         }
 
         public IEnumerable<Movie> all_kid_movies()
         {
-            throw new NotImplementedException();
+            foreach (var movie in this.movies)
+            {
+                if (movie.genre == Genre.kids)
+                    yield return movie;
+            }
         }
 
         public IEnumerable<Movie> all_action_movies()
         {
-            throw new NotImplementedException();
+            foreach (var movie in this.movies)
+            {
+                if (movie.genre == Genre.action)
+                    yield return movie;
+            }
         }
 
         public IEnumerable<Movie> sort_all_movies_by_date_published_descending()
